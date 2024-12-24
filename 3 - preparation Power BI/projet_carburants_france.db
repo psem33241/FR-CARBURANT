@@ -1,0 +1,137 @@
+/*
+SHOW DATABASES ;
+SHOW TABLES ;
+*/
+
+USE projet_carburants_france ;
+
+
+/*
+# combien de stations essences en France 
+SELECT
+	COUNT(*) AS nb_stations_france
+FROM stations_service
+;
+*/
+
+
+/*
+#ville pour table de dimension bi
+SELECT
+	DISTINCT ville
+FROM
+	stations_service
+ORDER BY
+	ville ASC ;
+*/
+
+/*
+#automate pour table de dimension bi
+SELECT
+	DISTINCT automate_24_24
+FROM
+	stations_service
+ORDER BY
+	automate_24_24 ASC ;
+*/
+
+/*
+#departement pour table de dimension bi
+SELECT
+	DISTINCT departement
+FROM
+	stations_service
+ORDER BY
+	departement ASC ;
+*/
+
+
+/*
+#region pour table de dimension bi
+SELECT
+	DISTINCT region
+FROM
+	stations_service
+ORDER BY
+	region ASC ;
+*/
+
+
+
+
+
+/*
+# combien de stations essences par département 
+SELECT
+	COUNT(*) AS nb_stations_par_departement,
+	departement,
+	code_departement
+FROM stations_service
+GROUP BY departement, code_departement
+ORDER BY code_departement
+;
+*/
+
+
+/*
+# combien de stations essences par ville 
+SELECT
+	COUNT(*) AS nb_stations_par_departement,
+	ville
+FROM stations_service
+GROUP BY ville
+ORDER BY ville ASC
+;
+*/
+
+
+/*
+# localisation
+SELECT
+	adresse,
+	code_postal,
+	ville,
+	adresse_complete,
+	latitude,
+	longitude,
+	departement,
+	region
+FROM
+	stations_service ;
+*/
+
+/*
+# distane_km
+SELECT 
+    adresse_complete,
+    round((6371 * acos(
+        cos(radians(43.60487365722656)) * cos(radians(latitude)) * 
+        cos(radians(longitude) - radians(1.4433115720748901)) + 
+        sin(radians(43.60487365722656)) * sin(radians(latitude))
+    )),2) AS distance_km
+FROM 
+    stations_service
+ORDER BY
+	distance_km ASC;
+*/
+
+
+/*
+# distane_km
+SELECT 
+    adresse_complete,
+    round((6371 * acos(
+        cos(radians(43.60487365722656)) * cos(radians(latitude)) * 
+        cos(radians(longitude) - radians(1.4433115720748901)) + 
+        sin(radians(43.60487365722656)) * sin(radians(latitude))
+    )),2) AS distance_km
+FROM 
+    stations_service
+HAVING distance_km < :rayon
+ORDER BY
+	distance_km ASC;
+*/
+
+
+#select * from stations_service ;
+
